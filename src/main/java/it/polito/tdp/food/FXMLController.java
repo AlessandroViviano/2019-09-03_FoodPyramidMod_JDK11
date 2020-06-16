@@ -37,7 +37,7 @@ public class FXMLController {
     private Button btnCammino;
 
     @FXML
-    private ComboBox<?> boxPorzioni;
+    private ComboBox<String> boxPorzioni;
 
     @FXML
     private TextArea txtResult;
@@ -54,7 +54,24 @@ public class FXMLController {
 
     @FXML
     void doCreaGrafo(ActionEvent event) {
-
+    	txtResult.clear();
+    	
+    	String cs = txtCalorie.getText();
+    	Integer c;
+    	try {
+    		c = Integer.parseInt(cs);
+    	}catch(NumberFormatException e) {
+    		txtResult.appendText("Errore: il valore non è un valido numero intero\n");
+    		return ;
+    	}
+    	
+    	String msg = model.creaGrafo(c);
+    	
+    	
+    	txtResult.appendText(msg);
+    	
+    	this.boxPorzioni.getItems().clear();
+    	this.boxPorzioni.getItems().addAll(model.getVertici());
     }
 
     @FXML
